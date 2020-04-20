@@ -18,14 +18,13 @@ import json
 import sys
 
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404
 
 from inplaceeditform.commons import (get_dict_from_obj, apply_filters,
                                      get_adaptor_class)
 
-MIMETYPE_RESPONSE = 'text'
 
 if sys.version_info[0] >= 2:
     unicode = str
@@ -130,6 +129,5 @@ def _convert_params_in_config(request_params, exclude_params=None):
     return config
 
 
-def _get_http_response(context, mimetype=MIMETYPE_RESPONSE):
-    return HttpResponse(json.dumps(context),
-                        MIMETYPE_RESPONSE)
+def _get_http_response(context):
+    return JsonResponse(context)
